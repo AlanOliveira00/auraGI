@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AURA V8 - Premium Karate Gi Experience</title>
+
+    <!-- Tailwind CSS (for utility layouts) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts: Inter and JetBrains Mono from Design System -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@200;300;400;500;600;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+    <style>
+        /* =========================================
+           1. CORE TOKENS & RESET (From Design System 2)
+           ========================================= */
+        :root {
+            --bg-body: #FFFFFF;
+            --bg-surface: #F9F9F9;
+            --bg-highlight: #F0F0F0;
+            --text-main: #0A0A0A;
+            --text-muted: #737373;
+            --text-light: #A3A3A3;
+            --border-light: #E5E5E5;
+            --accent-primary: #000000;
+            --accent-glow: rgba(0, 0, 0, 0.05);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            margin: 0;
+            padding: 0;
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* =========================================
+           2. ANIMATION SYSTEM (ADVANCED)
+           ========================================= */
+
+        /* Entrance Reveal */
+        @keyframes slideUpFade {
+            0% {
+                opacity: 0;
+                transform: translateY(60px) scale(0.98);
+                filter: blur(10px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0px);
+            }
+        }
+
+        .motion-enter {
+            opacity: 0;
+        }
+
+        .motion-enter.active {
+            animation: slideUpFade 1.4s var(--ease-out-expo) forwards;
+        }
+
+        /* Text Character Reveal */
+        .text-reveal-wrapper {
+            overflow: hidden;
+            display: inline-flex;
+            vertical-align: bottom;
+            line-height: 1.1;
+        }
+
+        .text-reveal-content {
+            transform: translateY(115%);
+            transition: transform 1.5s var(--ease-out-expo);
+            display: block;
+        }
+
+        .reveal-active .text-reveal-content {
+            transform: translateY(0);
+        }
+
+        /* =========================================
+           3. PREMIUM COMPONENTS (BEAM & GLOW)
+           ========================================= */
+
+        .beam-btn {
+            position: relative;
+            overflow: hidden;
+            border-radius: 999px;
+            padding: 1px;
+            background: rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            display: inline-flex;
+        }
+
+        .beam-btn-content {
+            background: #fff;
+            color: #000;
+            padding: 14px 36px;
+            border-radius: 999px;
+            position: relative;
+            z-index: 2;
+            transition: all 0.4s var(--ease-out-expo);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .beam-btn:hover .beam-btn-content {
+            background: #000;
+            color: #fff;
+            transform: scale(1.02);
+        }
+
+        .beam-spinner {
+            position: absolute;
+            inset: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent 0 340deg, #000 360deg);
+            animation: spin 3s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .secondary-btn {
+            padding: 14px 36px;
+            border-radius: 999px;
+            border: 1px solid var(--border-light);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+            transition: all 0.4s var(--ease-out-expo);
+            background: transparent;
+        }
+
+        .secondary-btn:hover {
+            border-color: #000;
+            background: var(--bg-highlight);
+            transform: translateY(-2px);
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .video-parallax-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #f0f0f0;
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.15);
+        }
+
+        #parallax-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+        }
+
+        .text-stroke-outline {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(0, 0, 0, 0.15);
+        }
+
+        .layout-grid {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            opacity: 0.4;
+        }
+
+        .grid-line {
+            width: 1px;
+            height: 100%;
+            background: repeating-linear-gradient(to bottom, transparent, transparent 4px, rgba(0, 0, 0, 0.05) 4px, rgba(0, 0, 0, 0.05) 8px);
+            margin: 0 8%;
+        }
+    </style>
+</head>
+
+<body class="selection:bg-black selection:text-white">
+
+    <div class="layout-grid">
+        <div class="grid-line"></div>
+        <div class="grid-line"></div>
+        <div class="grid-line"></div>
+    </div>
+
+    <!-- Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-nav transition-all duration-700 -translate-y-full"
+        id="main-nav">
+        <div class="max-w-[1440px] mx-auto px-8 md:px-16 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center text-white">
+                    <iconify-icon icon="solar:infinity-bold" class="text-xl"></iconify-icon>
+                </div>
+                <span class="font-bold tracking-tight text-xl uppercase">Aura<span
+                        class="font-light opacity-40">Gi</span></span>
+            </div>
+
+            <nav class="hidden lg:flex items-center gap-10">
+                <a href="#"
+                    class="text-[13px] font-medium uppercase tracking-[0.15em] text-neutral-500 hover:text-black transition-colors">Tradição</a>
+                <a href="#"
+                    class="text-[13px] font-medium uppercase tracking-[0.15em] text-neutral-500 hover:text-black transition-colors">Tecnologia</a>
+                <a href="#"
+                    class="text-[13px] font-medium uppercase tracking-[0.15em] text-neutral-500 hover:text-black transition-colors">Performance</a>
+            </nav>
+
+            <div class="flex items-center gap-6">
+                <button
+                    class="text-[13px] font-medium uppercase tracking-[0.1em] text-neutral-400 hover:text-black hidden sm:block">Login</button>
+                <div class="beam-btn group">
+                    <div class="beam-spinner"></div>
+                    <div class="beam-btn-content">
+                        <span>Reserve Agora</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10">
+        <!-- Hero Section -->
+        <section id="hero" class="h-screen w-full flex items-center overflow-hidden">
+            <div
+                class="max-w-[1440px] mx-auto px-8 md:px-16 w-full grid grid-cols-1 md:grid-cols-12 gap-16 items-center">
+
+                <div class="md:col-span-5 relative z-20 space-y-10" id="hero-text-area">
+                    <div class="motion-enter delay-100 flex items-center gap-4">
+                        <span class="h-[1px] w-8 bg-black"></span>
+                        <span
+                            class="text-[13px] font-mono font-medium uppercase tracking-[0.4em] text-neutral-500">Arata:
+                            Spirit of Form</span>
+                    </div>
+
+                    <h1 class="text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.85] text-black">
+                        <div class="text-reveal-wrapper">
+                            <span class="text-reveal-content">ULTRA</span>
+                        </div><br>
+                        <div class="text-reveal-wrapper">
+                            <span class="text-reveal-content">GENETIC.</span>
+                        </div><br>
+                        <div class="text-reveal-wrapper text-stroke-outline">
+                            <span class="text-reveal-content">SHIKAI.</span>
+                        </div>
+                    </h1>
+
+                    <p class="text-lg text-neutral-500 font-light max-w-sm leading-relaxed motion-enter delay-300">
+                        Engineering human potential through fabric. O equilíbrio absoluto entre o peso de uma pena e a
+                        resistência do aço japonês.
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-6 motion-enter delay-500">
+                        <div class="beam-btn group">
+                            <div class="beam-spinner"></div>
+                            <div class="beam-btn-content">
+                                <span>Explorar Tecnologia</span>
+                                <iconify-icon icon="solar:arrow-right-up-linear" class="text-lg"></iconify-icon>
+                            </div>
+                        </div>
+                        <button class="secondary-btn">Ver Coleção</button>
+                    </div>
+                </div>
+
+                <div class="md:col-span-7 relative" id="hero-media-area">
+                    <div class="video-parallax-container motion-enter delay-500">
+                        <video id="parallax-video" autoplay muted loop playsinline preload="auto" class="scale-110">
+                            <source src="assets/raw_files/video2.mp4" type="video/mp4">
+                        </video>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer / Placeholder Content -->
+        <section class="py-32 bg-neutral-50 border-t border-neutral-100">
+            <div class="max-w-[1440px] mx-auto px-8 md:px-16 text-center">
+                <p class="text-[10px] font-mono uppercase tracking-[0.5em] text-neutral-400">Arata Excellence</p>
+                <h2 class="text-3xl font-bold mt-4">Tradição em cada fibra.</h2>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            const lenis = new Lenis({
+                duration: 1.0,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smoothWheel: true,
+                wheelMultiplier: 1.2
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+
+            // 2. Entrance Sequence (Blur + Fade In)
+            const tlEntrance = gsap.timeline({ defaults: { ease: "expo.out" } });
+
+            tlEntrance
+                .to("#main-nav", { y: 0, duration: 1.2 })
+                .fromTo(".text-reveal-content",
+                    { y: "115%", filter: "blur(15px)", opacity: 0 },
+                    { y: "0%", filter: "blur(0px)", opacity: 1, duration: 1.8, stagger: 0.15 },
+                    "-=0.6"
+                )
+                .fromTo(".motion-enter",
+                    { y: 40, opacity: 0, filter: "blur(10px)" },
+                    {
+                        y: 0, opacity: 1, filter: "blur(0px)", duration: 1.5, stagger: 0.1, onComplete: () => {
+                            document.querySelectorAll('.motion-enter').forEach(el => el.classList.add('active'));
+                        }
+                    },
+                    "-=1.2"
+                );
+
+            // 3. Exit Sequence (Blur + Fade Out on Scroll)
+            gsap.to("#hero-text-area", {
+                filter: "blur(20px)",
+                opacity: 0,
+                y: -100,
+                ease: "power2.inOut",
+                scrollTrigger: {
+                    trigger: "#hero",
+                    start: "top top",
+                    end: "50% top",
+                    scrub: true
+                }
+            });
+
+            gsap.to("#hero-media-area", {
+                filter: "blur(15px)",
+                opacity: 0,
+                y: 80,
+                scale: 0.9,
+                ease: "power2.inOut",
+                scrollTrigger: {
+                    trigger: "#hero",
+                    start: "top top",
+                    end: "50% top",
+                    scrub: true
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
