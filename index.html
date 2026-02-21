@@ -335,30 +335,30 @@
             </div>
 
             <nav class="hidden lg:flex items-center gap-10">
-                <a href="#"
+                <a href="#tradicao"
                     class="text-[13px] font-medium uppercase tracking-[0.15em] text-neutral-500 hover:text-black transition-colors">Tradição</a>
-                <a href="#"
+                <a href="#tecnologia"
                     class="text-[13px] font-medium uppercase tracking-[0.15em] text-neutral-500 hover:text-black transition-colors">Tecnologia</a>
-                <a href="#"
-                    class="text-[13px] font-medium uppercase tracking-[0.15em] text-neutral-500 hover:text-black transition-colors">Performance</a>
+                <a href="#performance"
+                    class="text-[13px] font-medium uppercase tracking-[0.15em] text-neutral-500 hover:text-black transition-colors">Preço</a>
             </nav>
 
             <div class="flex items-center gap-6">
                 <button
                     class="text-[13px] font-medium uppercase tracking-[0.1em] text-neutral-400 hover:text-black hidden sm:block">Login</button>
-                <div class="beam-btn group">
+                <a href="#performance" class="beam-btn group">
                     <div class="beam-spinner"></div>
                     <div class="beam-btn-content">
                         <span>Reserve Agora</span>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </header>
 
     <main class="relative z-10">
         <!-- Hero Section -->
-        <section id="hero"
+        <section id="inicio"
             class="min-h-[100svh] lg:h-screen w-full flex items-center overflow-hidden pt-32 lg:pt-0 pb-16 lg:pb-0">
             <div
                 class="max-w-[1440px] mx-auto px-6 md:px-16 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -389,14 +389,16 @@
                     </p>
 
                     <div class="flex flex-wrap items-center gap-4 sm:gap-6 motion-enter delay-500">
-                        <div class="beam-btn group">
+                        <a href="#tecnologia" class="beam-btn group">
                             <div class="beam-spinner"></div>
                             <div class="beam-btn-content">
                                 <span>Explorar Tecnologia</span>
                                 <iconify-icon icon="solar:arrow-right-up-linear" class="text-lg"></iconify-icon>
                             </div>
-                        </div>
-                        <button class="secondary-btn w-full sm:w-auto">Ver Coleção</button>
+                        </a>
+                        <a href="#tradicao"
+                            class="secondary-btn w-full sm:w-auto text-center flex items-center justify-center">Ver
+                            Coleção</a>
                     </div>
                 </div>
 
@@ -462,8 +464,8 @@
                 AURA</div>
         </div>
 
-        <!-- FEATURE SECTION (Polished Premium Dark Model) -->
-        <section id="features" class="py-32 bg-[#050505] text-white relative overflow-hidden">
+        <!-- FEATURE SECTION (Tecnologia) -->
+        <section id="tecnologia" class="py-32 bg-[#050505] text-white relative overflow-hidden">
             <!-- Background Noise/Grain Overlay -->
             <div class="absolute inset-0 opacity-[0.03] pointer-events-none z-10"
                 style="background-image: url('https://grainy-gradients.vercel.app/noise.svg'); filter: contrast(120%) brightness(120%);">
@@ -624,10 +626,10 @@
                         Production Run: 001/100</p>
                     <div class="beam-btn group scale-125">
                         <div class="beam-spinner"></div>
-                        <div class="beam-btn-content bg-white text-black">
+                        <a href="#performance" class="beam-btn-content bg-white text-black">
                             <span>Adquirir Aura Shikai</span>
                             <iconify-icon icon="solar:arrow-right-linear" class="text-lg"></iconify-icon>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -653,8 +655,8 @@
             </div>
         </div>
 
-        <!-- SECTION 03: THE HERITAGE LOOKBOOK (Premium Light) -->
-        <section id="heritage" class="py-32 bg-white text-black relative border-t border-dashed border-black/10">
+        <!-- SECTION 03: TRADIÇÃO (Premium Light) -->
+        <section id="tradicao" class="py-32 bg-white text-black relative border-t border-dashed border-black/10">
             <!-- System Grid Background -->
             <div class="absolute inset-0 bg-grid opacity-30 pointer-events-none"></div>
 
@@ -851,8 +853,9 @@
         </div>
         </section>
 
-        <!-- SECTION 04: THE ACQUISITION / PURCHASE (Masterpiece Grade) -->
-        <section id="purchase" class="py-40 bg-[#050505] text-white relative border-t border-white/5 overflow-hidden">
+        <!-- SECTION 04: PERFORMANCE (Masterpiece Grade) -->
+        <section id="performance"
+            class="py-40 bg-[#050505] text-white relative border-t border-white/5 overflow-hidden">
             <!-- Dynamic Aura & Grid -->
             <div class="absolute inset-0 z-0 pointer-events-none">
                 <div class="absolute inset-0 opacity-[0.03]"
@@ -1197,10 +1200,10 @@
             gsap.registerPlugin(ScrollTrigger);
 
             const lenis = new Lenis({
-                duration: 0.6,
+                duration: 0.2,
                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                 smoothWheel: true,
-                wheelMultiplier: 1.0
+                wheelMultiplier: 3.2
             });
 
             function raf(time) {
@@ -1318,7 +1321,7 @@
                 y: -100,
                 ease: "power2.inOut",
                 scrollTrigger: {
-                    trigger: "#hero",
+                    trigger: "#inicio",
                     start: "top top",
                     end: "50% top",
                     scrub: true
@@ -1332,7 +1335,7 @@
                 scale: 0.9,
                 ease: "power2.inOut",
                 scrollTrigger: {
-                    trigger: "#hero",
+                    trigger: "#inicio",
                     start: "top top",
                     end: "50% top",
                     scrub: true
